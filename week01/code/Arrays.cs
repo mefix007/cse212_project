@@ -1,4 +1,6 @@
+#pragma warning disable CA1050 // Declare types in namespaces
 public static class Arrays
+#pragma warning restore CA1050 // Declare types in namespaces
 {
     /// <summary>
     /// This function will produce an array of size 'length' starting with 'number' followed by multiples of 'number'.  For 
@@ -13,7 +15,19 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // solutions
+        // step1: calculate how many elements will be moved from the end of the list
+        // step2: copy the last 'amount' elements into a temporary list
+        // step3: remove those elements from the end of the original list
+        // step4: insert the copied elements at the begining of the original list
+
+        double[] multiples = new double[length];
+        for (int i = 0; i < length; i++)
+        {
+            multiples[i] = number * (i + 1);
+        }
+
+        return multiples; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +43,15 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // step1: copy the last 'amount' elements from the list
+        List<int> tail = data.GetRange(data.Count - amount, amount);
+
+        // step2: remove the last 'amount' elements from the list
+        data.RemoveRange(data.Count - amount, amount);
+
+        // step3: insert the copied elements at the beginning of the list
+        data.InsertRange(0, tail);
+
     }
 }
