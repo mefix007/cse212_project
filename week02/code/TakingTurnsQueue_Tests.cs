@@ -36,6 +36,7 @@ public class TakingTurnsQueueTests
             var person = players.GetNextPerson();
             Assert.AreEqual(expectedResult[i].Name, person.Name);
             i++;
+            // there was an error that made the code to call wrong order
         }
     }
 
