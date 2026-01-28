@@ -12,6 +12,7 @@ public class TakingTurnsQueueTests
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    // This queue did not preserve FIFO order when re-adding person after a turn
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
@@ -45,6 +46,7 @@ public class TakingTurnsQueueTests
     // After running 5 times, add George with 3 turns.  Run until the queue is empty.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, George, Sue, Tim, George, Tim, George
     // Defect(s) Found: 
+    // The newly added player were not integrated correctly into the existing queue, causing incorrect ordering after midway insertion.
     public void TestTakingTurnsQueue_AddPlayerMidway()
     {
         var bob = new Person("Bob", 2);
@@ -87,6 +89,7 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
     // Defect(s) Found: 
+    // people with infinite turns (0) were being decremented or removed incorrectly, instead of remaining in the queue indefinitely
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -118,6 +121,7 @@ public class TakingTurnsQueueTests
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
     // Defect(s) Found: 
+    // Negative turn values were not treated as infinite turns, causing players to be removed prematurely
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
@@ -145,6 +149,7 @@ public class TakingTurnsQueueTests
     // Scenario: Try to get the next person from an empty queue
     // Expected Result: Exception should be thrown with appropriate error message.
     // Defect(s) Found: 
+    // The queue did not throw the required InvalidOperationException with the correct error message when empty
     public void TestTakingTurnsQueue_Empty()
     {
         var players = new TakingTurnsQueue();
